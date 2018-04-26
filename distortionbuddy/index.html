@@ -20,13 +20,13 @@
         <div class="py-5 text-center">
             <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
             <h2>GearVR Distortion Config Creator Tool - by <a href='https://www.reddit.com/user/slikk66'>slikk66</a></h2>
-            <p class="lead">Paste in your default "tracking_to_eye_transform" block of JSON (or your entire config) below and then adjust the sliders as needed.</p>
+            <p class="lead">Paste in your entire HMD config, just the "tracking_to_eye_transform" section, select a base config from one of the more popular configs for GearVR lenses:</p>
         </div>
         <div class="row">
             <div class="col text-center">
                 <form>
                     <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Paste "tracking_to_eye_transform" below (or select a base-config) and press: <button class="btn btn-success" id="parse">PARSE</button></label>
+                        <label for="exampleFormControlTextarea1">After putting config below, press: <button class="btn btn-success" id="parse">PARSE</button></label>
                         <textarea class="form-control" id="trackingJson" rows="3"></textarea>
                         <button id="jsonValid" class="btn btn-primary" hidden>VALID!</button>
                         <textarea class="form-control" hidden id="v3" rows="3"> {"tracking_to_eye_transform": [ { "distortion": { "center_x": 0.08929439470524059, "center_y": 0.00249327252794042, "coeffs":
@@ -125,26 +125,12 @@
         </div>
         <div class="row sliders" style="display: none">
             <div class="col text-center">
-                <br>
+                <p class="lead">After adjusting the sliders, press button to generate output below.  NOTE: when putting back into the HMD config, you may have to deal with removing curly braces before after, and adding, removing commas to make it JSON compliant.  Go here to check if your reassembled config is valid JSON before trying to upload it to your HMD <a href='http://jsonprettyprint.com/'>jsonprettyprint.com</a></p>
                 <button class="btn btn-success" id="gen">GENERATE</button>
                 <br><br>
                 <textarea class="form-control" id="trackingJsonOut" rows="3"></textarea>
             </div>
         </div>
-        <footer class="my-5 pt-5 text-muted text-center text-small">
-            <p class="mb-1">© 2017-2018 Company Name</p>
-            <ul class="list-inline">
-                <li class="list-inline-item">
-                    <a href="#">Privacy</a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="#">Terms</a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="#">Support</a>
-                </li>
-            </ul>
-        </footer>
     </div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
