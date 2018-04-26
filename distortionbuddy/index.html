@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon.ico">
+    <title>DistortionBuddy</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <!-- <link href="/css/form-validation.css" rel="stylesheet"> -->
+</head>
+
+<body class="bg-light">
+    <div class="container">
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <h2>GearVR Distortion Config Creator Tool</h2>
+            <p class="lead">Paste in your default "tracking_to_eye_transform" block of JSON (or your entire config) below and then adjust the sliders as needed.</p>
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Paste "tracking_to_eye_transform" below (or select a base-config) and press: <button class="btn btn-success" id="parse">PARSE</button></label>
+                        <textarea class="form-control" id="trackingJson" rows="3"></textarea>
+                        <button id="jsonValid" class="btn btn-primary" hidden>VALID!</button>
+                        <textarea class="form-control" hidden id="v3" rows="3"> {"tracking_to_eye_transform": [ { "distortion": { "center_x": 0.08929439470524059, "center_y": 0.00249327252794042, "coeffs":
+                        [ -0.2131013860926538, -0.01484047880631451, -0.05288173768290632, 0.0, 0.0, 0.0, 0.0, 0.0 ], "type": "DISTORT_DPOLY3" },
+                        "distortion_blue": { "center_x": 0.08929439470524059, "center_y": 0.00249327252794042, "coeffs": [ -0.2628619166604556, 0.06773015735024002,
+                        -0.1001613564801299, 0.0, 0.0, 0.0, 0.0, 0.0 ], "type": "DISTORT_DPOLY3" }, "distortion_red": { "center_x": 0.08929439470524059,
+                        "center_y": 0.00249327252794042, "coeffs": [ -0.1794432644159945, -0.06606698061328766, -0.02527639008136722, 0.0, 0.0, 0.0,
+                        0.0, 0.0 ], "type": "DISTORT_DPOLY3" }, "extrinsics": [ [ 1.0, 0.0, 0.0, 0.03109734132885933 ], [ 0.0, 1.0, 0.0, -2.235174179077148e-08
+                        ], [ 0.0, 0.0, 1.0, -7.450580596923828e-09 ] ], "grow_for_undistort": 0.6000000238418579, "intrinsics": [ [ 1.222222222222222,
+                        0.0, -0.08929439634084702 ], [ 0.0, 1.1, 0.002243945375084877 ], [ 0.0, 0.0, -1.0 ] ], "undistort_r2_cutoff": 1.135009288787842
+                        }, { "distortion": { "center_x": -0.09162746444351921, "center_y": -0.008225905729841963, "coeffs": [ -0.2217160050831912,
+                        -0.002529502378183619, -0.05969732837118644, 0.0, 0.0, 0.0, 0.0, 0.0 ], "type": "DISTORT_DPOLY3" }, "distortion_blue": {
+                        "center_x": -0.09162746444351921, "center_y": -0.008225905729841963, "coeffs": [ -0.2732724020525745, 0.08543503202657598,
+                        -0.1103613766404206, 0.0, 0.0, 0.0, 0.0, 0.0 ], "type": "DISTORT_DPOLY3" }, "distortion_red": { "center_x": -0.09162746444351921,
+                        "center_y": -0.008225905729841963, "coeffs": [ -0.1872499310616191, -0.05529118550766949, -0.03117463416342108, 0.0, 0.0,
+                        0.0, 0.0, 0.0 ], "type": "DISTORT_DPOLY3" }, "extrinsics": [ [ 1.0, 0.0, 0.0, -0.03109737858176231 ], [ 0.0, 1.0, 0.0, -2.235174179077148e-08
+                        ], [ 0.0, 0.0, 1.0, -7.450580596923828e-09 ] ], "grow_for_undistort": 0.6000000238418579, "intrinsics": [ [ 1.222222222222222,
+                        0.0, 0.09162746369838715 ], [ 0.0, 1.1, -0.007403315044939518 ], [ 0.0, 0.0, -1.0 ] ], "undistort_r2_cutoff": 1.127524495124817
+                        } ]}</textarea>
+                        <textarea class="form-control" hidden id="v11" rows="3"> {"tracking_to_eye_transform": [ { "distortion": { "center_x": 0.09232045277761405, "center_y": 0.006361936539229084, "coeffs":
+                        [ -0.2052418418083186, -0.03203330034299954, -0.031048955291774642, 0, 0, 0, 0, 0 ], "type": "DISTORT_DPOLY3" }, "distortion_blue":
+                        { "center_x": 0.09232045277761405, "center_y": 0.006361936539229084, "coeffs": [ -0.261786585742667, 0.06141219375146123,
+                        -0.0824345713001669, 0, 0, 0, 0, 0 ], "type": "DISTORT_DPOLY3" }, "distortion_red": { "center_x": 0.09232045277761405, "center_y":
+                        0.006361936539229084, "coeffs": [ -0.16674695238578124, -0.09114510018142205, -0.0002126849758344654, 0, 0, 0, 0, 0 ], "type":
+                        "DISTORT_DPOLY3" }, "extrinsics": [ [ 1, 0, 0, 0.03109734132885933 ], [ 0, 1, 0, -2.2351741790771484e-08 ], [ 0, 0, 1, -7.450580596923828e-09
+                        ] ], "grow_for_undistort": 0.6000000238418579, "intrinsics": [ [ 1.2152777, 0, -0.09232044965028763 ], [ 0, 1.09375, 0.005725742783397436
+                        ], [ 0, 0, -1 ] ], "undistort_r2_cutoff": 1.136414885520935 }, { "distortion": { "center_x": -0.08786602631896553, "center_y":
+                        0.007813439628411977, "coeffs": [ -0.20157049784051323, -0.024264968983984742, -0.037958565362364284, 0, 0, 0, 0, 0 ], "type":
+                        "DISTORT_DPOLY3" }, "distortion_blue": { "center_x": -0.08786602631896553, "center_y": 0.007813439628411977, "coeffs": [
+                        -0.2521771612908315, 0.05957411126422096, -0.08623101154189873, 0, 0, 0, 0, 0 ], "type": "DISTORT_DPOLY3" }, "distortion_red":
+                        { "center_x": -0.08786602631896553, "center_y": 0.007813439628411977, "coeffs": [ -0.1627355646031865, -0.0836435769916916,
+                        -0.006609085294585326, 0, 0, 0, 0, 0 ], "type": "DISTORT_DPOLY3" }, "extrinsics": [ [ 1, 0, 0, -0.031097378581762314 ], [
+                        0, 1, 0, -2.2351741790771484e-08 ], [ 0, 0, 1, -7.450580596923828e-09 ] ], "grow_for_undistort": 0.6000000238418579, "intrinsics":
+                        [ [ 1.2152777, 0, 0.08786602318286896 ], [ 0, 1.09375, 0.007032095454633236 ], [ 0, 0, -1 ] ], "undistort_r2_cutoff": 1.1139718294143677
+                        } ]}</textarea>
+                        <textarea class="form-control" hidden id="v12" rows="3">{"tracking_to_eye_transform": [ { "distortion": { "center_x": 0.09232045277761405, "center_y": 0.006, "coeffs": [ -0.2052418418083186,
+                        -0.03203330034299954, -0.031048955291774642, 0, 0, 0, 0, 0 ], "type": "DISTORT_DPOLY3" }, "distortion_blue": { "center_x":
+                        0.09232045277761405, "center_y": 0.006, "coeffs": [ -0.261786585742667, 0.06141219375146123, -0.0824345713001669, 0, 0, 0,
+                        0, 0 ], "type": "DISTORT_DPOLY3" }, "distortion_red": { "center_x": 0.09232045277761405, "center_y": 0.006, "coeffs": [ -0.16674695238578124,
+                        -0.09114510018142205, -0.0002126849758344654, 0, 0, 0, 0, 0 ], "type": "DISTORT_DPOLY3" }, "extrinsics": [ [ 1, 0, 0, 0.03109734132885933
+                        ], [ 0, 1, 0, -2.2351741790771484e-08 ], [ 0, 0, 1, -7.450580596923828e-09 ] ], "grow_for_undistort": 0.6000000238418579,
+                        "intrinsics": [ [ 1.222222, 0, -0.09232044965028763 ], [ 0, 1.1, 0.006 ], [ 0, 0, -1 ] ], "undistort_r2_cutoff": 1.136414885520935
+                        }, { "distortion": { "center_x": -0.09232044965028763, "center_y": 0.007, "coeffs": [ -0.20157049784051323, -0.024264968983984742,
+                        -0.037958565362364284, 0, 0, 0, 0, 0 ], "type": "DISTORT_DPOLY3" }, "distortion_blue": { "center_x": -0.09232044965028763,
+                        "center_y": 0.007, "coeffs": [ -0.2521771612908315, 0.05957411126422096, -0.08623101154189873, 0, 0, 0, 0, 0 ], "type": "DISTORT_DPOLY3"
+                        }, "distortion_red": { "center_x": -0.09232044965028763, "center_y": 0.007, "coeffs": [ -0.1627355646031865, -0.0836435769916916,
+                        -0.006609085294585326, 0, 0, 0, 0, 0 ], "type": "DISTORT_DPOLY3" }, "extrinsics": [ [ 1, 0, 0, -0.031097378581762314 ], [
+                        0, 1, 0, -2.2351741790771484e-08 ], [ 0, 0, 1, -7.450580596923828e-09 ] ], "grow_for_undistort": 0.6000000238418579, "intrinsics":
+                        [ [ 1.222222, 0, 0.09232044965028763 ], [ 0, 1.1, 0.007 ], [ 0, 0, -1 ] ], "undistort_r2_cutoff": 1.1139718294143677 } ]}</textarea>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center"><button class="btn btn-primary json-data" id="v3">slikk66: V3</button></div>
+            <div class="col text-center"><button class="btn btn-primary json-data" id="v11">grodenglaive: v11</button></div>
+            <div class="col text-center"><button class="btn btn-primary json-data" id="v12">grodenglaive: v12</button></div>
+        </div>
+        <div class="row sliders" style="display: none">
+            <div class="col" data-id="0">
+                <input id="ex0" type="text" data-slider-min="-0.02" data-slider-max="0.1" data-slider-step=".00001" data-slider-value="0" data-slider-orientation="vertical"
+                />
+                <span id="ex0CurrentSliderValLabel">Coef 0 (+/-):
+                    <span id="ex0SliderVal">0</span>
+                    <br>
+                    <button class="btn btn-sm btn-primary reset">Reset</button>
+                </span>
+            </div>
+            <div class="col" data-id="1">
+                <input id="ex1" type="text" data-slider-min="-0.02" data-slider-max="0.1" data-slider-step=".00001" data-slider-value="0" data-slider-orientation="vertical"
+                />
+                <span id="ex1CurrentSliderValLabel">Coef 1 (+/-):
+                    <span id="ex1SliderVal">0</span>
+                    <br>
+                    <button class="btn btn-sm btn-primary reset">Reset</button>
+                </span>
+            </div>
+            <div class="col" data-id="2">
+                <input id="ex2" type="text" data-slider-min="-0.02" data-slider-max="0.1" data-slider-step=".00001" data-slider-value="0" data-slider-orientation="vertical"
+                />
+                <span id="ex2CurrentSliderValLabel">Coef 2 (+/-):
+                    <span id="ex2SliderVal">0</span>
+                    <br>
+                    <button class="btn btn-sm btn-primary reset">Reset</button>
+                </span>
+            </div>
+            <div class="col" data-id="3">
+                <input id="ex3" type="text" data-slider-min="-50" data-slider-max="+50" data-slider-step="1" data-slider-value="0" data-slider-orientation="vertical"
+                />
+                <span id="ex3CurrentSliderValLabel">Focal Length (+/-):
+                    <span id="ex3SliderVal">0</span>
+                    <br>
+                    <button class="btn btn-sm btn-primary reset">Reset</button>
+                </span>
+            </div>
+        </div>
+        <div class="row sliders" style="display: none">
+            <div class="col text-center">
+                <br>
+                <button class="btn btn-success" id="gen">GENERATE</button>
+                <br><br>
+                <textarea class="form-control" id="trackingJsonOut" rows="3"></textarea>
+            </div>
+        </div>
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+            <p class="mb-1">© 2017-2018 Company Name</p>
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <a href="#">Privacy</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#">Terms</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#">Support</a>
+                </li>
+            </ul>
+        </footer>
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="/js/jquery-slim.min.js"><\/script>')</script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.min.js"></script>
+    <script language="javascript">
+
+    $(document).ready(function () { fields = ["0", "1", "2", "3"], $("#gen").click(function () { return function () { var t = $("#trackingJson").val().trim(), r = !1, n = {}, e = {}; try { n = JSON.parse(t), r = !0 } catch (t) { r = !1, n = {} } if (r) { for (var i in fields) e[parseInt(i)] = $("#ex" + i + "SliderVal").html(); var a = parseInt(Math.round(1080 * n.tracking_to_eye_transform[0].intrinsics[0][0] / 2)); for (var i in [0, 1]) { n.tracking_to_eye_transform[i].intrinsics[0][0] = 2 * (a + parseInt(e[3])) / 1080, n.tracking_to_eye_transform[i].intrinsics[1][1] = 2 * (a + parseInt(e[3])) / 1200; for (var o in [0, 1, 2]) n.tracking_to_eye_transform[i].distortion.coeffs[o] = n.tracking_to_eye_transform[i].distortion.coeffs[o] + parseFloat(e[o]), n.tracking_to_eye_transform[i].distortion_blue.coeffs[o] = n.tracking_to_eye_transform[i].distortion_blue.coeffs[o] + parseFloat(e[o]), n.tracking_to_eye_transform[i].distortion_red.coeffs[o] = n.tracking_to_eye_transform[i].distortion_red.coeffs[o] + parseFloat(e[o]) } $("#trackingJsonOut").val(JSON.stringify(n)) } }(), !1 }), $("#parse").click(function () { $(".sliders").hide(), function t(r) { var n, e = $("#trackingJson").val().trim(), i = !1, a = {}; try { a = JSON.parse(e), i = !0 } catch (t) { i = !1, a = {} } return i || r ? !(!i || !a.tracking_to_eye_transform) : ("," == (n = $("#trackingJson").val().trim())[n.length - 1] && (n = n.substring(0, n.length - 1)), "{" != n[0] && (n = "{" + n + "}"), $("#trackingJson").val(n), t(!0)) }(!1) ? $(".sliders").show() : alert("invalid config!"); for (var t in fields) r(t, !1); return !1 }), $("button.json-data").click(function () { return $("#trackingJson").val($("textarea#" + event.target.id).text()), !1 }), $("button.reset").click(function () { return r($(this).parent().parent().data("id"), !1), !1 }); for (var t in fields) r(t, !0); function r(t, r) { if ($("#ex" + t + "SliderVal").html("0"), $("#ex" + t).data("slider-value", 0), !r) try { $("#ex" + t).slider("destroy") } catch (t) { } $("#ex" + t).slider({ reversed: !0 }), $("#ex" + t).on("slide", function (r) { $("#ex" + t + "SliderVal").text(r.value) }) } });        
+
+    </script>
+</html>
