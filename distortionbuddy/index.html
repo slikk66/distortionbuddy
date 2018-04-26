@@ -19,7 +19,7 @@
     <div class="container">
         <div class="py-5 text-center">
             <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-            <h2>GearVR Distortion Config Creator Tool</h2>
+            <h2>GearVR Distortion Config Creator Tool - by <a href='https://www.reddit.com/user/slikk66'>slikk66</a></h2>
             <p class="lead">Paste in your default "tracking_to_eye_transform" block of JSON (or your entire config) below and then adjust the sliders as needed.</p>
         </div>
         <div class="row">
@@ -156,7 +156,169 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.min.js"></script>
     <script language="javascript">
 
-    $(document).ready(function () { fields = ["0", "1", "2", "3"], $("#gen").click(function () { return function () { var t = $("#trackingJson").val().trim(), r = !1, n = {}, e = {}; try { n = JSON.parse(t), r = !0 } catch (t) { r = !1, n = {} } if (r) { for (var i in fields) e[parseInt(i)] = $("#ex" + i + "SliderVal").html(); var a = parseInt(Math.round(1080 * n.tracking_to_eye_transform[0].intrinsics[0][0] / 2)); for (var i in [0, 1]) { n.tracking_to_eye_transform[i].intrinsics[0][0] = 2 * (a + parseInt(e[3])) / 1080, n.tracking_to_eye_transform[i].intrinsics[1][1] = 2 * (a + parseInt(e[3])) / 1200; for (var o in [0, 1, 2]) n.tracking_to_eye_transform[i].distortion.coeffs[o] = n.tracking_to_eye_transform[i].distortion.coeffs[o] + parseFloat(e[o]), n.tracking_to_eye_transform[i].distortion_blue.coeffs[o] = n.tracking_to_eye_transform[i].distortion_blue.coeffs[o] + parseFloat(e[o]), n.tracking_to_eye_transform[i].distortion_red.coeffs[o] = n.tracking_to_eye_transform[i].distortion_red.coeffs[o] + parseFloat(e[o]) } $("#trackingJsonOut").val(JSON.stringify(n)) } }(), !1 }), $("#parse").click(function () { $(".sliders").hide(), function t(r) { var n, e = $("#trackingJson").val().trim(), i = !1, a = {}; try { a = JSON.parse(e), i = !0 } catch (t) { i = !1, a = {} } return i || r ? !(!i || !a.tracking_to_eye_transform) : ("," == (n = $("#trackingJson").val().trim())[n.length - 1] && (n = n.substring(0, n.length - 1)), "{" != n[0] && (n = "{" + n + "}"), $("#trackingJson").val(n), t(!0)) }(!1) ? $(".sliders").show() : alert("invalid config!"); for (var t in fields) r(t, !1); return !1 }), $("button.json-data").click(function () { return $("#trackingJson").val($("textarea#" + event.target.id).text()), !1 }), $("button.reset").click(function () { return r($(this).parent().parent().data("id"), !1), !1 }); for (var t in fields) r(t, !0); function r(t, r) { if ($("#ex" + t + "SliderVal").html("0"), $("#ex" + t).data("slider-value", 0), !r) try { $("#ex" + t).slider("destroy") } catch (t) { } $("#ex" + t).slider({ reversed: !0 }), $("#ex" + t).on("slide", function (r) { $("#ex" + t + "SliderVal").text(r.value) }) } });        
+
+    $(document).ready(function () {
+
+        fields = ['0', '1', '2', '3'];
+
+        $("#gen").click(function () {
+            generateOutput();
+            return false;
+        })
+
+        $("#parse").click(function () {
+            jsonChanged();
+            for (var x in fields) {
+                setupSlider(x, false);
+            }
+            return false;
+        })
+
+        $("button.json-data").click(function () {
+            $("#trackingJson").val($("textarea#" + event.target.id).text());
+            return false;
+        })
+
+        $("button.reset").click(function () {
+            var id = $(this).parent().parent().data("id");
+            setupSlider(id, false);
+            return false;
+        })
+
+        for (var x in fields) {
+            setupSlider(x, true);
+        }
+
+        function generateOutput() {
+
+            var base_json = $("#trackingJson").val().trim();
+
+            var json_valid = false;
+            var json_parsed = {};
+
+            var coeffs = {}
+
+            try {
+                json_parsed = JSON.parse(base_json);
+                json_valid = true;
+            }
+            catch (err) {
+                json_valid = false;
+                json_parsed = {};
+            }
+
+            if (json_valid) {
+
+                for (var x in fields) {
+                    coeffs[parseInt(x)] = $("#ex" + x + "SliderVal").html();
+                }
+
+                var raw_focal = parseInt(Math.round((json_parsed["tracking_to_eye_transform"][0]['intrinsics'][0][0] * 1080) / 2));
+
+                for (var x in [0, 1]) {
+
+                    // focal w
+                    json_parsed["tracking_to_eye_transform"][x]['intrinsics'][0][0] = (2 * (raw_focal + parseInt(coeffs[3])) / 1080);
+
+                    // focal h
+                    json_parsed["tracking_to_eye_transform"][x]['intrinsics'][1][1] = (2 * (raw_focal + parseInt(coeffs[3])) / 1200);
+
+                    for (var y in [0, 1, 2]) {
+                        json_parsed["tracking_to_eye_transform"][x]['distortion']['coeffs'][y] = json_parsed["tracking_to_eye_transform"][x]['distortion']['coeffs'][y] + parseFloat(coeffs[y]);
+                        json_parsed["tracking_to_eye_transform"][x]['distortion_blue']['coeffs'][y] = json_parsed["tracking_to_eye_transform"][x]['distortion_blue']['coeffs'][y] + parseFloat(coeffs[y]);
+                        json_parsed["tracking_to_eye_transform"][x]['distortion_red']['coeffs'][y] = json_parsed["tracking_to_eye_transform"][x]['distortion_red']['coeffs'][y] + parseFloat(coeffs[y]);
+                    }
+
+                }
+
+                $("#trackingJsonOut").val(JSON.stringify(json_parsed));
+
+            }
+
+        }
+
+        function setupSlider(x, isnew) {
+            $("#ex" + x + "SliderVal").html("0")
+            $("#ex" + x).data("slider-value", 0)
+
+            if (!isnew) {
+                try {
+                    $("#ex" + x).slider('destroy');
+                }
+                catch (err) { }
+            }
+
+            $("#ex" + x).slider({
+                reversed: true
+            });
+            $("#ex" + x).on("slide", function (slideEvt) {
+                $("#ex" + x + "SliderVal").text(slideEvt.value);
+            });
+        }
+
+        function attemptJsonFix() {
+
+            var test_json = $("#trackingJson").val().trim();
+
+            var lastChar = test_json[test_json.length - 1];
+
+            if (lastChar == ',') {
+                test_json = test_json.substring(0, test_json.length - 1);
+            }
+
+            var firstChar = test_json[0];
+
+            if (firstChar != "{") {
+                test_json = "{" + test_json + "}";
+            }
+
+            $("#trackingJson").val(test_json);
+
+        }
+
+        function validateJson(updated) {
+            var test_json = $("#trackingJson").val().trim();
+            var json_valid = false;
+            var json_parsed = {}
+
+            try {
+                json_parsed = JSON.parse(test_json);
+                json_valid = true;
+            }
+            catch (err) {
+                json_valid = false;
+                json_parsed = {}
+            }
+
+            if (!json_valid && !updated) {
+                attemptJsonFix();
+                return validateJson(true);
+            }
+
+            if (json_valid) {
+                if (json_parsed["tracking_to_eye_transform"]) {
+                    return true
+                }
+            }
+
+            return false
+
+        }
+
+        function jsonChanged() {
+
+            $(".sliders").hide();
+
+            if (validateJson(false)) {
+                $(".sliders").show();
+            }
+            else {
+                alert('invalid config!');
+            }
+
+        }
+
+    })
 
     </script>
 </html>
